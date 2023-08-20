@@ -2,8 +2,14 @@ name: 'Obsidian-Zola Build for Pages'
 description: 'Build an obsidian-zola site, and push it to gh-pages branch'
 author: 'Trent Walraven'
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: 'composite'
+  steps:
+  - run: sudo apt-get update && apt-get install -y wget git python-is-python3 python3-pip rsync
+    shell: bash
+  - run: sudo pip3 install python-slugify rtoml --break-system-packages
+    shell: bash
+  - run: sudo entrypoint.sh
+    shell: bash
 branding:
   icon: 'moon'  
   color: 'blue'
